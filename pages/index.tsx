@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js! v1.0.2</a>
+          Welcome to <a href="https://nextjs.org">Next.js! v1.0.1</a>
         </h1>
 
         <p className={styles.description}>
@@ -56,16 +56,6 @@ const Home: NextPage = () => {
             className={styles.card}
           >
             <h2>test v1.0.1</h2>
-            <p>
-              Hello World
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>test v1.0.2</h2>
             <p>
               Hello World
             </p>
