@@ -3,7 +3,6 @@
     "commitMessage": "chore: release v${version}",
     "tagName": "test-v${version}",
     "push": false,
-    "tagMatch": "v[0-9]\\.[0-9]\\.[0-9]",
     "requireBranch": "main"
   },
   "github": {
