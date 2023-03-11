@@ -1,8 +1,8 @@
 {
   "git": {
-    "commitMessage": "chore: release v${version}",
     "tagName": "test-v${version}",
-    "push": false,
+    "push": false, 
+    "commit": false,
     "requireBranch": "main"
   },
   "github": {
