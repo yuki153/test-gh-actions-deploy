@@ -15,6 +15,9 @@ const githubOption = process.env.ENV === "prd" ? {
 }
 
 module.exports = {
+    hooks: {
+        "before:init": ["git pull"],
+    },
     git: {
         // tag push まで実行されないため true にする
         push: true,
