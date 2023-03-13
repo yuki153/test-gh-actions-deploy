@@ -16,8 +16,11 @@ const githubOption = process.env.ENV === "prd" ? {
 
 module.exports = {
     git: {
+        // tag push まで実行されないため true にする
         push: true,
+        // package.json の version や changelog 等変更（commit）しないので false にする
         commit: false,
+        // local に作業途中のファイルが存在しても tag push できるようにする
         requireCleanWorkingDir: false,
         requireBranch: "main",
         ...gitOption,
@@ -25,5 +28,6 @@ module.exports = {
     github: {
         ...githubOption,
     },
+    // release-it 実行で package.json の version が increment されないように npm: false とする
     npm: false,
 }
