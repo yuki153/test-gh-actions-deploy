@@ -16,7 +16,7 @@ const githubOption = process.env.ENV === "prd" ? {
 
 module.exports = {
     git: {
-        push: false,
+        push: true,
         commit: false,
         requireCleanWorkingDir: false,
         requireBranch: "main",
