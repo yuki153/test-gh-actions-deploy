@@ -7,9 +7,11 @@ const gitOption = process.env.ENV === "prd" ? {
 };
 
 const githubOption = process.env.ENV === "prd" ? {
+    release: true,
     autoGenerate: true,
+    releaseName: "PRD-Release ${version}"
 } : {
-    autoGenerate: false,
+    release: false,
 }
 
 module.exports = {
@@ -21,7 +23,6 @@ module.exports = {
         ...gitOption,
     },
     github: {
-        release: true,
         ...githubOption,
     },
     npm: false,
