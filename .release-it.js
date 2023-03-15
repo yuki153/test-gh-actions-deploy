@@ -26,7 +26,7 @@ module.exports = {
         // local に作業途中のファイルが存在しても tag push できるようにする
         requireCleanWorkingDir: false,
         requireBranch: "main",
-        tagAnnotation: "$(date +\"%Y/%m/%d_%H:%M:%S\")",
+        tagAnnotation: '"$(date +\"%Y/%m/%d_%H:%M:%S\")"',
         ...gitOption,
     },
     github: {
