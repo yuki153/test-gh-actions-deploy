@@ -11,6 +11,8 @@ const gitOption = process.env.ENV === "prd" ? {
 
 const githubOption = process.env.ENV === "prd" ? {
     release: true,
+    // generate release notes を有効にするか
+    autoGenerate: true,
     releaseName: "PRD-Release ${version}"
 } : {
     release: false,
