@@ -6,4 +6,4 @@
 * release-it を使用した tag version の自動 increment
 * release-it を使用した GitHub Releases の自動生成
 
-<!-- test -->
+<!-- test2 -->
