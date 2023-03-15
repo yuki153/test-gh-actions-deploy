@@ -1,3 +1,6 @@
+const dayjs = require('dayjs')
+const ja = require('dayjs/locale/ja')
+
 const gitOption = process.env.ENV === "prd" ? {
     tagMatch: "prd-v[0-9]\.[0-9]\.[0-9]",
     tagName: "prd-v${version}",
@@ -26,7 +29,7 @@ module.exports = {
         // local に作業途中のファイルが存在しても tag push できるようにする
         requireCleanWorkingDir: false,
         requireBranch: "main",
-        tagAnnotation: '"$(date +\"%Y/%m/%d_%H:%M:%S\")"',
+        tagAnnotation: dayjs().locale(ja).format("YYYY年M月DD日(ddd) HH:MM"),
         ...gitOption,
     },
     github: {
