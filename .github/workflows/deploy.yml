@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v3 # node16 runtime by default
-      - name: yarn install & build/export
+        uses: actions/checkout@v4
+      - name: npm install & build/export
         run: |
-          yarn
-          yarn build
-          yarn export
+          npm install
+          npm run build
+          npm run export
       - name: App Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
