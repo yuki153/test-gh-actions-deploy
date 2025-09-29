@@ -1,13 +1,13 @@
 import { execSync } from 'node:child_process';
 
-const repo = 'yuki153/test-gh-actions-deploy';
-const from = process.argv[2]; // 前回タグ
-const to = process.argv[3];   // 今回タグ
+// 最新のタグ情報を取得する
+const latestTag = execSync(`git describe --tags --abbrev=0`).toString().trim();
 
-if (!from || !to) {
-  console.error('Usage: node generate-pr-changelog.js <from_tag> <to_tag>');
-  process.exit(1);
-}
+const repo = 'yuki153/test-gh-actions-deploy';
+const from = process.argv[2] || latestTag; // 前回タグ
+const to = process.argv[3] || "HEAD";      // 今回タグ
+
+console.log(`Command: node bin/generate-pr-changelog.mjs ${from} ${to}`);
 
 const separationMark = '--- COMMIT_SEPARATOR ---';
 
@@ -26,24 +26,36 @@ const changelog = commits
     const firstLine = lines[0];
     // PRタイトルは通常2行目に存在
     const prTitle = lines[1] || '';
-    
+
+    // merge の commit message 設定が default の場合の正規表現
+    const defaultRegex = /Merge pull request #(\d+) from ([\w\-\/\.]+)/i;
+    // merge の commit message 設定が PR Title の場合の正規表現
+    const prTitleRegex = /^(.*)\s+\(#(\d+)\)$/;
+
     // "Merge pull request #123 from branch-name" 形式をチェック
-    const match = firstLine.match(/Merge pull request #(\d+) from ([\w\-\/\.]+)/i);
+    let match = firstLine.match(defaultRegex);
     if (match) {
       const prNumber = match[1];
       const branchName = match[2];
-      
+
       // PR タイトルがある場合はそれを使用、ない場合はブランチ名から推測
       const title = prTitle || branchName.split('/').pop() || branchName;
       return `- ${title} ([#${prNumber}](https://github.com/${repo}/pull/${prNumber}))`;
-    } else {
-      // 形式に合わないコミットもフィルタリング（通常のコミットメッセージの場合）
-      const firstLine = lines[0];
-      if (firstLine.startsWith('Merge branch') || firstLine.startsWith('Merge remote-tracking')) {
-        return null; // ブランチマージは除外
-      }
-      return `- ${firstLine}`;
     }
+
+    // "PR Title (#123)" 形式をチェック
+    match = firstLine.match(prTitleRegex);
+    if (match) {
+      const title = match[1];
+      const prNumber = match[2];
+      return `- ${title} ([#${prNumber}](https://github.com/${repo}/pull/${prNumber}))`;
+    }
+
+    // 形式に合わないコミットもフィルタリング（通常のコミットメッセージの場合）
+    if (firstLine.startsWith('Merge branch') || firstLine.startsWith('Merge remote-tracking')) {
+      return null; // ブランチマージは除外
+    }
+    return `- ${firstLine}`;
   })
   .filter(item => item !== null) // null を除外
   .join('\n');

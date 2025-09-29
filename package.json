@@ -10,7 +10,8 @@
     "test-release": "cross-env ENV=test release-it",
     "prd-release": "cross-env ENV=prd release-it",
     "dry:test-release": "cross-env ENV=test release-it --dry-run",
-    "dry:prd-release": "cross-env ENV=prd release-it --dry-run"
+    "dry:prd-release": "cross-env ENV=prd release-it --dry-run",
+    "changelog": "node changelog.mjs"
   },
   "dependencies": {
     "dayjs": "^1.11.7",
