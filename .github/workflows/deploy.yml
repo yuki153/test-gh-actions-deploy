@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
-      - name: yarn install & build/export
+      - name: npm install & build/export
         run: |
-          yarn
-          yarn build
-          yarn export
+          npm install
+          npm run build
+          npm run export
       - name: App Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
